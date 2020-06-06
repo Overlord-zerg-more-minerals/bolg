@@ -1,12 +1,18 @@
 from django.shortcuts import render, HttpResponse
-from articel.models import Articele
+from .models import Article, Author
 
 
 def homepage(request):
-    articeles = Articele.objects.all()
-    return render(request, 'articel/homepage.html', {'articels': articeles})
+    articles = Article.objects.all()
+    wind = Author.objects.get(id=1)
+
+    return render(request, 'article/homepage.html', 
+        {
+            
+        'articles': articles,
+        'wind': wind
+        
+        })
+    
  
 
-def index(request):
-    meets = Articele.ojects.all()
-    return render(request, 'articel/index.html', {'meets': meets})

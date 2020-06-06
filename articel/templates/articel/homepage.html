@@ -2,12 +2,35 @@
 
 {% block content %}
   
-    <h2>Articels:</h2>
-    {% for a in articels %}
-    
-        <ul>{{ a.title }}</ul>
-        <div>{{ a.text }}</div>
+    <h2>Статьи:</h2>
+   
+    {% for a in article %}
+        <h3>{{ a.title }}   </h3>
+        <div>{{ a.text }}</div>  
+        <i><h3>Автор</h3>{{a.author}}</i>
+        <b>Прочитано: {{ a.readers.count }}</b>
         <hr>
     {% endfor %}
-    
+  
+    <hr><hr>
+
+    <h3>{{ wind }}</h3>
+    {% for a in article %}
+
+    <div><h2>{{ a.comments }}</h2></div>
+
+    {% endfor %}
+
+
+    <hr><hr><hr>
+
+
+    <h3>Прочитано пользователем {{ wind }}</h3>
+    <ol>
+    {% for article in wind.user.articles.all %}
+            <ul>{{ article.title  }}</ul>
+    {% endfor %}
+    </ol>
+
+
 {% endblock %}
