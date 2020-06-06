@@ -8,22 +8,26 @@
         <h3>{{ a.title }}   </h3>
         <div>{{ a.text }}</div>  
         <i><h3>Автор</h3>{{ a.author }}</i>
-        <b>Прочитано: {{ a.readers.count }}</b>
         <hr>
+        <b>Прочитано: {{ a.readers.count }}</b>
+        
    
-    <hr><hr>
-
-    <h2>Коментарии</h2>
-    
-    <h3>{{ wind }}</h3>
-    <div><h2>{{ a.comments }}</h2></div>
-    <h4>{{ a.likes }}</h4>
     {% endfor %}
-  
+
+<hr><hr>
 
 
-    <hr><hr><hr>
+    
+    {% for b in comments %}
 
+    <h2>Коментарии :</h2>
+    <h2>{{ c.user }}</h2>
+    <h2>{{ c.article }}</h2>
+    <div>{{ c.text }}</div>
+
+    {% endfor %}
+
+<hr><hr>
 
     <h3>Прочитано пользователем {{ wind }}</h3>
     <ol>
@@ -31,6 +35,5 @@
             <ul>{{ article.title  }}</ul>
     {% endfor %}
     </ol>
-
 
 {% endblock %}

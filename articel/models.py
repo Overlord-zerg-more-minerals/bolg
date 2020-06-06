@@ -11,8 +11,12 @@ class Article(models.Model):
         to="Author", on_delete=models.CASCADE,
         related_name="articles", null=True, blank=True
     )
-    readers = models.ManyToManyField(to=User, related_name="articles")
-    comments = models.TextField()
+    readers = models.ManyToManyField(
+        to=User, 
+        related_name="articles",
+        null=True,
+        blank=True
+        )
 
 
     def __str__(self):
@@ -29,5 +33,15 @@ class Author(models.Model):
 
     def __str__(self):
         return self.nick
+
+
+class Comments(models.Model):
+    article = models.ForeignKey(to=Article, on_delete=models.CASCADE, related_name='coments') 
+    text = models.TextField()
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="comments")
+
+    def __str__(self):
+        return str(self.user) + " - " + self.text
+
 
 
