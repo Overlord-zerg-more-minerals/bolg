@@ -7,19 +7,19 @@
     {% for a in article %}
         <h3>{{ a.title }}   </h3>
         <div>{{ a.text }}</div>  
-        <i><h3>Автор</h3>{{a.author}}</i>
+        <i><h3>Автор</h3>{{ a.author }}</i>
         <b>Прочитано: {{ a.readers.count }}</b>
         <hr>
-    {% endfor %}
-  
+   
     <hr><hr>
 
+    <h2>Коментарии</h2>
+    
     <h3>{{ wind }}</h3>
-    {% for a in article %}
-
     <div><h2>{{ a.comments }}</h2></div>
-    <h4>{{likes}}</h4>
+    <h4>{{ a.likes }}</h4>
     {% endfor %}
+  
 
 
     <hr><hr><hr>
