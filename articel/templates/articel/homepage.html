@@ -4,17 +4,17 @@
   
     <h2>Статьи:</h2>
    
-    {% for a in article %}
-        <h3>{{ a.title }}   </h3>
-        <div>{{ a.text }}</div>  
-        <i><h3>Автор</h3>{{ a.author }}</i>
+    {% for a in articles %}
         <hr>
+        <h3>{{ a.title }}</h3>
+        <div>{{ a.text }}</div>  
+        <br><h5>{{ a.author }}</h5>           
         <b>Прочитано: {{ a.readers.count }}</b>
-        
+        <hr>
    
     {% endfor %}
 
-<hr><hr>
+<!-- <hr><hr>
 
 
     
@@ -34,6 +34,6 @@
     {% for article in wind.user.articles.all %}
             <ul>{{ article.title  }}</ul>
     {% endfor %}
-    </ol>
+    </ol> -->
 
 {% endblock %}
