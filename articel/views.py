@@ -57,4 +57,5 @@ def users(request):
     context = {}
     context["user_l"] = User.objects.all()
     return render(request, "articel/users.html", context)
-  
+
+
