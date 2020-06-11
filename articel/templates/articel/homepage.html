@@ -6,10 +6,16 @@
    
     {% for a in articles %}
         <hr>
-        <h3>{{ a.title }}</h3>
+        <h3>
+            <a href="/article/{{ a.id }}/">
+                {{ a.title }}
+            </a>
+        </h3>
         <div>{{ a.text }}</div>  
-        <br><h5>{{ a.author }}</h5>           
+        <a href="{% url 'profile' a.author a.author %}"><br><h5>{{ a.author }}</h5> </a>          
         <b>Прочитано: {{ a.readers.count }}</b>
+        <br>
+        <b> Понравилось:{{ a.likes }} </b>
         <hr>
    
     {% endfor %}
