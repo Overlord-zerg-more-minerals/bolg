@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <h2>{{ article.title }}</h2>
     <div>{{ article.text }}</div>
-    <i><br>Автор: {{ article.author }}</i>
-    <h3><br>Понравилось: {{ article.likes }}</h3>
-    <h4><br>Прочитало: {{ article.readers.count }}</h4>
+    <i>Автор: {{ article.author }}</i>
+    <h5>Прочитало: {{ article.readers.count }}</h5>
+    <h4>Понравилось: {{ article.likes }}</h4>
+    
     <ul>
         {% for readers in article.readers.all %}
             <li>{{ readers }}</li>
         {% endfor %}
     </ul>
+
     <hr>
+
     <form method="POST">
         {% csrf_token %}
-    <button class="btn btn-lg btn-danger">Удалить</button>
+        <button class="btn btn-lg btn-danger">Удалить</button>
     </form>
+    
 {% endblock %}

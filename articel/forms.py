@@ -2,10 +2,15 @@ from django import forms
 from .models import *
 
 
-class ArticleForm(form.ModelForm):
+
+class ArticleForm(forms.ModelForm):
     class Meta:
-        model = ArticleForm
+        model = Article
         fields = ['title', 'text', 'author']
 
-class authorForm(forms.ModelForm):
-    
+
+
+class AuthorForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['nick', 'user']

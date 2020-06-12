@@ -1,19 +1,26 @@
-from django.shortcuts import render, HttpResponse
-from .models import Author, Article, Comments   
+from django.shortcuts import render, redirect
+from .models import Author, Article   
 from django.contrib.auth.models import User
+from .forms import *
 
 def homepage(request):
-    articles = Article.objects.all()
-    # wind = Author.objects.get(id=1)
-
+    articles = Article.objects.filter(activate=True)
     return render(request, "articel/homepage.html", 
         { 
             "articles": articles
-            # 'wind': wind
         })
 
 
+
+
 def article(request, id):
+    if request.method == 'POST':
+        article = Article.objects.get(id=id)
+        article.activate = False
+        article.save()
+        return redirect(homepage)
+
+
     article = Article.objects.get(id=id)
     return render(request, "articel/articles.html",
         {
@@ -22,9 +29,21 @@ def article(request, id):
         })
     
 
+
 def add_article(request):
-    from = ArticleForm()
-    return render(request, "articel/add_article.html")
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")
+    
+    form = ArticleForm()
+    return render(request, "articel/add_article.html",
+    {
+        "form": form
+    })
+
+
 
 
 def authors(request):
@@ -36,22 +55,29 @@ def authors(request):
     })
  
 
+
 def profile(request, pk):
     author = Author.objects.get(id=pk)
-    return render(request, "articel/profile.html", )
+    return render(request, "articel/profile.html",
+    {
+        "author": author
+    })
+
 
 
 def add_author(request):
-   if request.method == "GET":
-       form = AuthorForm()
-       context = {}
-       context["form"] = form
-       return render(request, "articel/add_autor.html", context)
+    if request.method == "POST":
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")   
+        
+    form = AuthorForm()
+    return render(request, "articel/add_author.html",
+    {
+        "form": form
+    })
 
-    elif request.method == "POST":
-        name = request.POST.get('name')
-        user_id = request.POST.get("user") 
-        user = User
 
 def users(request):
     context = {}

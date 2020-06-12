@@ -3,43 +3,30 @@
 {% block content %}
   
     <h2>Статьи:</h2>
+    <hr>
    
     {% for a in articles %}
-        <hr>
+
         <h3>
-            <a href="/article/{{ a.id }}/">
+            <a href="{% url 'article' a.id %}">
                 {{ a.title }}
             </a>
         </h3>
-        <div>{{ a.text }}</div>  
-        <a href="{% url 'profile' a.author a.author %}"><br><h5>{{ a.author }}</h5> </a>          
+
+        <h5>
+            <a href="{% url 'profile' a.author.pk %}">
+                <b>
+                    <i>Автор: {{ a.author.nick }}</i> 
+                </b>    
+            </a>   
+        </h5>
+        <br>
         <b>Прочитано: {{ a.readers.count }}</b>
         <br>
-        <b> Понравилось:{{ a.likes }} </b>
+        <b> Понравилось: {{ a.likes }} </b>
         <hr>
    
     {% endfor %}
 
-<!-- <hr><hr>
-
-
-    
-    {% for b in comments %}
-
-    <h2>Коментарии :</h2>
-    <h2>{{ c.user }}</h2>
-    <h2>{{ c.article }}</h2>
-    <div>{{ c.text }}</div>
-
-    {% endfor %}
-
-<hr><hr>
-
-    <h3>Прочитано пользователем {{ wind }}</h3>
-    <ol>
-    {% for article in wind.user.articles.all %}
-            <ul>{{ article.title  }}</ul>
-    {% endfor %}
-    </ol> -->
 
 {% endblock %}

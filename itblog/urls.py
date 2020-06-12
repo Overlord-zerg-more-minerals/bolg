@@ -21,9 +21,10 @@ from articel.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage, name="homepage"),
+    path("article/<int:id>/", article, name="article"),
     path('authors/', authors, name="authors"),
     path('users/', users, name="users"),
-    path("article/<int:id>/", article)
-    path("art")
-    path("profile/<in>t")
+    path("profile/<int:pk>/", profile, name="profile"),
+    path("article/add/", add_article, name= "add-article"),
+    path("author/add/", add_author, name= "add-author")
 ]

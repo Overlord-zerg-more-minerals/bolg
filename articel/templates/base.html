@@ -23,14 +23,19 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'users' %}">Пользователи</a>
     </li>
-
-
-    
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'add-article' %}">Добавить Статью</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'add-author' %}">Добавить Автора</a>
+    </li>
   </ul>
 
 </nav>
+  <br>
   <div class="container" >
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
   </div>
 </body>
 </html>

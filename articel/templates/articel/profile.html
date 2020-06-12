@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 
-{% block content }
+{% block content %}
 
-        <h3> Псевдоним :{{ author.name }}</h3>
-        <h4> Количество статей :{{ author.article.count }}</h4>
+        <h3> Псевдоним :{{ author.nick }}</h3>
+        <h4> Количество статей :{{ author.articles.count }}</h4>
 
 {% endblock %}
