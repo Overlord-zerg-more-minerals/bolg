@@ -23,12 +23,25 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'users' %}">Пользователи</a>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="{% url 'add-article' %}">Добавить Статью</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'add-author' %}">Добавить Автора</a>
-    </li>
+    </li> -->
+  </ul>
+
+  <ul class="navbar-nav"></ulclass>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary">Добавить --></button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{% url 'add-author' %}">Автора</a>
+        <a class="dropdown-item" href="{% url 'add-article' %}">Статьи</a>
+      </div>
+    </div>
   </ul>
 
 </nav>

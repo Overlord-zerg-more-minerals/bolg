@@ -24,6 +24,7 @@ class Article(models.Model):
 
 class Author(models.Model):
     nick = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to="author_avatar", null=True, blank=True)
     user = models.OneToOneField(
     to=User, on_delete=models.SET_NULL, related_name='author',
     null=True, blank=True

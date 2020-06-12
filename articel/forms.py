@@ -13,4 +13,4 @@ class ArticleForm(forms.ModelForm):
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ['nick', 'user']
+        fields = ['nick', 'user', 'photo']

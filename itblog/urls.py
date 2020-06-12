@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from articel.views import *
-
-
+from django.conf import settings
+from django.conf.urls.static import static
+ 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage, name="homepage"),
@@ -26,5 +27,7 @@ urlpatterns = [
     path('users/', users, name="users"),
     path("profile/<int:pk>/", profile, name="profile"),
     path("article/add/", add_article, name= "add-article"),
-    path("author/add/", add_author, name= "add-author")
-]
+    path("author/add/", add_author, name= "add-author"),
+    path("article/edit/<int:id>/", edit_article, name= "edit-article"),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

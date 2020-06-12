@@ -66,18 +66,17 @@ def profile(request, pk):
 
 
 def add_author(request):
-    if request.method == "POST":
+    if request.method == "GET":
+        form = AuthorForm()
+        return render(request, "articel/add_author.html",{"form": form})  
+
+    elif request.method == "POST":
         form = AuthorForm(request.POST)
         if form.is_valid():
             form.save()
             return render(request, "success.html")   
         
-    form = AuthorForm()
-    return render(request, "articel/add_author.html",
-    {
-        "form": form
-    })
-
+        
 
 def users(request):
     context = {}
@@ -85,3 +84,16 @@ def users(request):
     return render(request, "articel/users.html", context)
 
 
+
+def edit_article(request, id):
+    article = Article.ojects.get(id=id)
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")
+
+    
+    form = ArticleForm(instance=article)
+    return render (request, "articel/articles.html", {"form":form})
