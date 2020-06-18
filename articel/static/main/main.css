@@ -1,11 +1,12 @@
-h2 {
+
+a {
     color: black;
 }
 
+
 a:hover  {
     text-decoration: none;
-    color: black
-    
+    color: darkblue;
 }
 
 
