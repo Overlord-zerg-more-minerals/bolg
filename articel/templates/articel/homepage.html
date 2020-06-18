@@ -7,24 +7,27 @@
    
     {% for a in articles %}
 
-        <h3>
+        <h2>
             <a href="{% url 'article' a.id %}">
                 {{ a.title }}
             </a>
-        </h3>
+        </h2>
 
         <h5>
             <a href="{% url 'profile' a.author.pk %}">
-                <b>
-                    <i>Автор: {{ a.author.nick }}</i> 
-                </b>    
+                Автор: {{ a.author.nick }} 
             </a>   
         </h5>
         <br>
         <b>Прочитано: {{ a.readers.count }}</b>
         <br>
-        <b> Понравилось: {{ a.likes }} </b>
+        <b>Понравилось: {{ a.likes }} </b>
+        <br>
+        <a href="" class="btn btn-info" role="button">коментарии</a>
         <hr>
+
+        
+        
    
     {% endfor %}
 

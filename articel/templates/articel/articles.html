@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block content %}
 
@@ -8,6 +9,7 @@
     <h5>Прочитало: {{ article.readers.count }}</h5>
     <h4>Понравилось: {{ article.likes }}</h4>
     
+
     <ul>
         {% for readers in article.readers.all %}
             <li>{{ readers }}</li>
@@ -15,20 +17,17 @@
     </ul>
 
     <hr>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <a href="{% url 'edit-article' %}">
+            <button name="delete_btn" class="btn btn-lg btn-warning">Редактировать</button>
+        </a>
+    </form>
 
     <form method="POST">
         {% csrf_token %}
         <button class="btn btn-lg btn-danger">Удалить</button>
     </form>
-
-    <br>
-    <br>
-    
-    <form method="POST">
-        {% csrf_token %}
-        <a href="{% url 'edit-article' %}">
-        <button class="btn btn-lg btn-warning">Редактировать</button>
-        </a>
-    </form>
-
 {% endblock %}

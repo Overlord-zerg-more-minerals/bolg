@@ -14,3 +14,11 @@ class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ['nick', 'user', 'photo']
+
+    
+class CommentsForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ['text'] 
+
+

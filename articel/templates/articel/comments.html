@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+    <h3>оставьте Коментарий:</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button name="add_comment_btn" class="btn btn-lg btn-primary" type="submit">Сохранить</button>
+    </form>
+    <hr>
+    <h3>Коментарии:</h3>
+    <hr>
+    {% for comments in article.comments.all %}
+        <i><b>{{ comments.user.get_full_name }}</b></i>
+        <h4>{{ comments.text }}</h4>
+        <hr>
+        <a href="{% url 'edit-comment' comments.id %}">редактировать</a>
+        <a href="{% url 'delete-comment' comments.id %}">Удалить</a>
+    {% endfor %}
+
+{% endblock %}

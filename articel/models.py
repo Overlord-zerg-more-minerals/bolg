@@ -36,9 +36,9 @@ class Author(models.Model):
 
 
 class Comments(models.Model):
-    article = models.ForeignKey(to=Article, on_delete=models.CASCADE, related_name='comments') 
+    article = models.ForeignKey(to=Article, on_delete=models.SET_NULL, related_name='comments',null=True, blank=True) 
     text = models.TextField()
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="comments",null=True, blank=True)
 
     def __str__(self):
         return str(self.user) + " - " + self.text

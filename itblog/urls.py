@@ -28,6 +28,7 @@ urlpatterns = [
     path("profile/<int:pk>/", profile, name="profile"),
     path("article/add/", add_article, name= "add-article"),
     path("author/add/", add_author, name= "add-author"),
-    path("article/edit/<int:id>/", edit_article, name= "edit-article"),
-
+    path("article/edit/<int:id>/", edit_article, name="edit-article"),
+    path("comments/<int:id>/edit/", edit_comment, name="edit-comment"),
+    path("comment/<int:id>/delete/", delete_comment, name="delete-comment")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
