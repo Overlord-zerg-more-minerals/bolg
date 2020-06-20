@@ -16,6 +16,8 @@ def article(request, id):
     article = Article.objects.get(id=id)  
     article.views += 1
     article.save()
+    # article.readers.add
+    # article.save()
     if request.method == 'POST':
         if 'delete_btn' in request.POST:
             article.activate = False
@@ -30,8 +32,7 @@ def article(request, id):
                 article=article,
                 text=form.cleaned_data["text"]
             )
-            comments.save()
-        
+            comments.save()    
     context = {}
     context["article"] = article
     context["form"] = CommentsForm()
@@ -41,7 +42,6 @@ def article(request, id):
         "articel/articles.html",
         context
     )
-
 
 def add_article(request):
     if request.method == 'POST':

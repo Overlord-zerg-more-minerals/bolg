@@ -34,9 +34,12 @@ class Article(models.Model):
     reposts = models.IntegerField(default=0)
     tags = models.ManyToManyField("Tag", blank=True, related_name="article")
 
-
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "статьи"
+        verbose_name_plural = "Статьи"
     
 
 class Author(models.Model):
@@ -50,6 +53,10 @@ class Author(models.Model):
 
     def __str__(self):
         return self.nick
+
+    class Meta:
+        verbose_name = "авторов"
+        verbose_name_plural = "Авторы"
 
 
 class Comments(models.Model):
@@ -71,5 +78,8 @@ class Tag(models.Model):
     def __str__(self):
         return self.name_tag        
 
+    class Meta:
+       verbose_name = "тег" 
+       verbose_name_plural = "Теги"
 
     
