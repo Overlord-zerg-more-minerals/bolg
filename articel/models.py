@@ -38,7 +38,7 @@ class Article(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = "статьи"
+        verbose_name = "статью"
         verbose_name_plural = "Статьи"
     
 
@@ -79,7 +79,7 @@ class Tag(models.Model):
         return self.name_tag        
 
     class Meta:
-       verbose_name = "тег" 
-       verbose_name_plural = "Теги"
+       verbose_name = "тэг" 
+       verbose_name_plural = "Тэги"
 
     

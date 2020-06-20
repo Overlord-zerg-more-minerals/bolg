@@ -16,19 +16,13 @@
     <br>
     <h7>Последнее изменение: {{ article.updated_date }} </h7>      
 
-    <ul>
-        {% for readers in article.readers.all %}
-            <h6>Читатели: {{ readers }}</h6>
-        {% endfor %}
-    </ul>
-
     <hr>
     
         <a  href="{% url 'edit-article' article.id %}" 
             class="btn btn-lg btn-warning">Редактировать
         </a>
                 
-    <br> 
+    
 
         <button class="btn btn-lg btn-danger">Удалить</button>
 {% endblock %}

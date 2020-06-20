@@ -15,9 +15,10 @@ def homepage(request):
 def article(request, id):
     article = Article.objects.get(id=id)  
     article.views += 1
+    user = request.user
+    if not user.is_anonymous:
+        article.readers.add(user)
     article.save()
-    # article.readers.add
-    # article.save()
     if request.method == 'POST':
         if 'delete_btn' in request.POST:
             article.activate = False
