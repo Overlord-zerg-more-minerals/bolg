@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 class Article(models.Model):
@@ -11,11 +12,27 @@ class Article(models.Model):
         to="Author", on_delete=models.CASCADE,
         related_name="articles", null=True, blank=True
     )
+
     readers = models.ManyToManyField(
         to=User, 
         related_name="articles",
         blank=True
         )
+
+
+    publication_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    picture = models.ImageField(
+        null=True, 
+        blank=True,
+        upload_to="articles/" + datetime.today().strftime("%Y%m%d")
+    )
+
+    dislikes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
+    reposts = models.IntegerField(default=0)
+    tags = models.ManyToManyField("Tag", blank=True, related_name="article")
 
 
     def __str__(self):
@@ -43,6 +60,16 @@ class Comments(models.Model):
     def __str__(self):
         return str(self.user) + " - " + self.text
 
+    class Meta:
+        verbose_name = "коментарии"
+        verbose_name_plural = "Коментарии"
 
 
+class Tag(models.Model):
+    name_tag = models.CharField(max_length=55)
 
+    def __str__(self):
+        return self.name_tag        
+
+
+    

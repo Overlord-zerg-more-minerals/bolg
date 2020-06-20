@@ -3,31 +3,32 @@
 
 {% block content %}
 
-    <h2>{{ article.title }}</h2>
-    <div>{{ article.text }}</div>
+    <h2></li>{{ article.title }}</li></h2>
+    <hr>
+    <div><h4>{{ article.text }}</h4></div>
+    <hr>
     <i>Автор: {{ article.author }}</i>
-    <h5>Прочитало: {{ article.readers.count }}</h5>
-    <h4>Понравилось: {{ article.likes }}</h4>
-    
+    <h6>Прочитало: {{ article.readers.count }}</h6>
+    <h6>Просмотров: {{ article.views }}</h6>
+    <h6>Понравилось: {{ article.likes }}</h6>
+    <hr>
+    <h7>Дата публикации: {{ article.publication_date }} </h7>
+    <br>
+    <h7>Последнее изменение: {{ article.updated_date }} </h7>      
 
     <ul>
         {% for readers in article.readers.all %}
-            <li>{{ readers }}</li>
+            <h6>Читатели: {{ readers }}</h6>
         {% endfor %}
     </ul>
 
     <hr>
     
-    <form method="POST">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <a href="{% url 'edit-article' %}">
-            <button class="btn btn-lg btn-warning">Редактировать</button>
+        <a  href="{% url 'edit-article' article.id %}" 
+            class="btn btn-lg btn-warning">Редактировать
         </a>
-    </form>
+                
+    <br> 
 
-    <form method="POST">
-        {% csrf_token %}
         <button class="btn btn-lg btn-danger">Удалить</button>
-    </form>
 {% endblock %}

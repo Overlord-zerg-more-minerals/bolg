@@ -1,12 +1,14 @@
 {% extends 'base.html'%}
 
 {% block content %}
-  
-    <h2>Статьи:</h2>
-    <hr>
-   
-    {% for a in articles %}
 
+   <div class="jumbotron">
+        <h1>Статьи на сайте ItBlog !</h1>
+        <p>Делись новостями, и узнавай новое для себя !</p>
+    </div>
+    
+
+    {% for a in articles %}
         <h2>
             <a href="{% url 'article' a.id %}">
                 {{ a.title }}
@@ -18,18 +20,12 @@
                 Автор: {{ a.author.nick }} 
             </a>   
         </h5>
-        <br>
+    
         <b>Прочитано: {{ a.readers.count }}</b>
         <br>
         <b>Понравилось: {{ a.likes }} </b>
         <br>
             <a href="" class="btn btn-info" role="button">коментарии</a>
         <hr>
-
-        
-        
-   
     {% endfor %}
-
-
 {% endblock %}
