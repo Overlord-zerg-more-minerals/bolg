@@ -5,6 +5,10 @@
 
     <h2></li>{{ article.title }}</li></h2>
     <hr>
+    {% if article.picture %}
+        <img width="150" src="{{ article.picture.url }}">
+    {% endif %}
+    <hr>
     <div><h4>{{ article.text }}</h4></div>
     <hr>
     <i>Автор: {{ article.author }}</i>

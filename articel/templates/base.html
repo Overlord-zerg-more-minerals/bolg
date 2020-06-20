@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-  <ul class="navbar-nav">
+  <ul class="navbar-nav mr-auto">
     <li class="nav-item">
       <a class="nav-link" href="/">Статьи</a>
     </li>
@@ -26,9 +26,9 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'users' %}">Пользователи</a>
     </li>
-  </ul>
+  
 
-  <ul class="navbar-nav"></ulclass>
+  
     <div class="btn-group">
       <button type="button" class="btn btn-primary">Добавить --></button>
       <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
@@ -40,6 +40,11 @@
       </div>
     </div>
   </ul>
+  <form class="form-inline" action="{% url 'homepage' %}" method="POST">
+    {% csrf_token %}
+    <input class="form-control mr-sm-2" type="text" name="key_word" placeholder="Введитк текст">
+    <button class="btn btn-primary" type="submit">Поиск</button>
+  </form>
 
 </nav>
   <br>

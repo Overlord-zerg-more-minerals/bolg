@@ -6,6 +6,14 @@ from .forms import *
 
 def homepage(request):
     articles = Article.objects.filter(activate=True).order_by("-likes")
+    if request.method == "POST":
+        key = request.POST.get("key_word")
+        articles = Article.objects.filter(activate=True).filter(
+            title__contains=key) | Article.objects.filter(activate=True).filter(
+                text__contains=key) | Article.objects.filter(activate=True).filter(
+                    tags__name_tag__contains=key)
+    else:
+        articles = Article.objects.filter(activate=True).order_by("likes")
 
     return render(request, "articel/homepage.html", 
         {"articles": articles}
@@ -95,7 +103,7 @@ def edit_article(request, id):
     article = Article.objects.get(id=id)
 
     if request.method == "POST":
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             form.save()
             return render(request, "success.html")

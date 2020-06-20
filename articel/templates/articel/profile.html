@@ -6,7 +6,7 @@
         <h3> Псевдоним :{{ author.nick }}</h3>
         <h4> Количество статей :{{ author.articles.count }}</h4>
         {% if author.photo %}
-                <img src="{{ author.photo.url }}" width="100">
+                <img src="{{ author.photo.url }}" width="150">
         {% endif %}
 
 {% endblock %}
