@@ -13,8 +13,10 @@ def homepage(request):
             title__contains=key) | Article.objects.filter(activate=True).filter(
                 text__contains=key) | Article.objects.filter(activate=True).filter(
                     tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
-                        readers__user__contains=key) | Article.objects.filter(activate=True).filter(
-                            picture__contains=key) 
+                        picture__contains=key) 
+                    #  | Article.objects.filter(activate=True).filter(
+                    #     readers__contains=key) # проблема ! ( взможно из за внешнего ключа ?)
+                         
         # comments = Comments.objects.filter(activate=True).filter(
         #     text__contains=key)
         
