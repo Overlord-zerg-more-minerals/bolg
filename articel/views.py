@@ -19,8 +19,6 @@ def homepage(request):
                          
         # comments = Comments.objects.filter(activate=True).filter(
         #     text__contains=key)
-        
-               
     else:
         articles = Article.objects.filter(activate=True).order_by("-likes")
         # comments = Comments.objects.filter(activate=True).order_by("")
@@ -28,6 +26,19 @@ def homepage(request):
         {"articles": articles}
         # {"comments": comments}
     )
+
+# # # # # # # # # Может так
+
+            # comments = Comments.objects.filter(activate=True)
+            # if request.method == "POST":
+            #     key = request.POST.get("key_word")
+            #     comments = Comments.objects.filter(activate=True).filter(
+            #         text__contains=key)
+            # else:
+            #     comments = Comments.objects.filter(activate=True)
+            # return render(request, "articel/homepage.html",
+            #     {"comments": comments}
+            # )
 
 
 def article(request, id):
