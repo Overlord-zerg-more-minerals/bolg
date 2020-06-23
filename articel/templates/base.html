@@ -26,12 +26,10 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'users' %}">Пользователи</a>
     </li>
-  
 
-  
     <div class="btn-group">
-      <button type="button" class="btn btn-primary">Добавить --></button>
-      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+      <button type="button" class="btn btn-info">Добавить --></button>
+      <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
         <span class="caret"></span>
       </button>
       <div class="dropdown-menu">
@@ -40,13 +38,15 @@
       </div>
     </div>
   </ul>
+
   <form class="form-inline" action="{% url 'homepage' %}" method="POST">
     {% csrf_token %}
-    <input class="form-control mr-sm-2" type="text" name="key_word" placeholder="Введитк текст">
-    <button class="btn btn-primary" type="submit">Поиск</button>
+    <input class="form-control mr-sm-2" type="text" name="key_word" placeholder="Введите слово">
+    <button class="btn btn-info" type="submit">Поиск</button>
   </form>
 
 </nav>
+
   <br>
   <div class="container" >
     {% block content %}

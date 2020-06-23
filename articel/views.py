@@ -6,17 +6,25 @@ from .forms import *
 
 def homepage(request):
     articles = Article.objects.filter(activate=True).order_by("-likes")
+    # comments = Comments.objects.filter(activate=True)
     if request.method == "POST":
         key = request.POST.get("key_word")
         articles = Article.objects.filter(activate=True).filter(
             title__contains=key) | Article.objects.filter(activate=True).filter(
                 text__contains=key) | Article.objects.filter(activate=True).filter(
-                    tags__name_tag__contains=key)
+                    tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
+                        readers__user__contains=key) | Article.objects.filter(activate=True).filter(
+                            picture__contains=key) 
+        # comments = Comments.objects.filter(activate=True).filter(
+        #     text__contains=key)
+        
+               
     else:
-        articles = Article.objects.filter(activate=True).order_by("likes")
-
+        articles = Article.objects.filter(activate=True).order_by("-likes")
+        # comments = Comments.objects.filter(activate=True).order_by("")
     return render(request, "articel/homepage.html", 
         {"articles": articles}
+        # {"comments": comments}
     )
 
 
@@ -54,7 +62,7 @@ def article(request, id):
 
 def add_article(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return render(request, "success.html")
