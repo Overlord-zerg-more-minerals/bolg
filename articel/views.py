@@ -6,40 +6,28 @@ from .forms import *
 
 def homepage(request):
     articles = Article.objects.filter(activate=True).order_by("-likes")
-    # comments = Comments.objects.filter(activate=True)
+
     if request.method == "POST":
         key = request.POST.get("key_word")
         articles = Article.objects.filter(activate=True).filter(
             title__contains=key) | Article.objects.filter(activate=True).filter(
                 text__contains=key) | Article.objects.filter(activate=True).filter(
                     tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
-                        picture__contains=key) 
-                    #  | Article.objects.filter(activate=True).filter(
-                    #     readers__contains=key) # проблема ! ( взможно из за внешнего ключа ?)
-                         
-        # comments = Comments.objects.filter(activate=True).filter(
-        #     text__contains=key)
+                        picture__contains=key)  | Article.objects.filter(activate=True).filter(
+                            readers__username__contains=key) | Article.objects.filter(activate=True).filter(
+                                comments__text__contains=key)
+
+        articles = articles.distinct()    
     else:
-        articles = Article.objects.filter(activate=True).order_by("-likes")
-        # comments = Comments.objects.filter(activate=True).order_by("")
+        if "key_word" in request.GET:
+            key = request.GET.get("key_word")
+            articles = Article.objects.filter(activate=True).filter(text__contains=key)
+       else:
+            articles = Article.objects.filter(activate=True)
+
     return render(request, "articel/homepage.html", 
         {"articles": articles}
-        # {"comments": comments}
     )
-
-# # # # # # # # # Может так
-
-            # comments = Comments.objects.filter(activate=True)
-            # if request.method == "POST":
-            #     key = request.POST.get("key_word")
-            #     comments = Comments.objects.filter(activate=True).filter(
-            #         text__contains=key)
-            # else:
-            #     comments = Comments.objects.filter(activate=True)
-            # return render(request, "articel/homepage.html",
-            #     {"comments": comments}
-            # )
-
 
 def article(request, id):
     article = Article.objects.get(id=id)  

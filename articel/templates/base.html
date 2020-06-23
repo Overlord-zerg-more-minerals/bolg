@@ -39,7 +39,7 @@
     </div>
   </ul>
 
-  <form class="form-inline" action="{% url 'homepage' %}" method="POST">
+  <form class="form-inline" action="{% url 'homepage' %}">
     {% csrf_token %}
     <input class="form-control mr-sm-2" type="text" name="key_word" placeholder="Введите слово">
     <button class="btn btn-info" type="submit">Поиск</button>
