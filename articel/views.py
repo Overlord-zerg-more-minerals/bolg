@@ -2,32 +2,24 @@ from django.shortcuts import render, redirect
 from .models import Author, Article   
 from django.contrib.auth.models import User
 from .forms import *
-
+from django.db.models import Q 
 
 def homepage(request):
-    articles = Article.objects.filter(activate=True).order_by("-likes")
+    if "key_word" in request.GET:
+        key = request.GET.get("key_word")
+        # articles = Article.objects.filter(activate=True).filter(
+        # title__contains=key) | Article.objects.filter(activate=True).filter(
+        #     text__contains=key) | Article.objects.filter(activate=True).filter(
+        #         tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
+        #             picture__contains=key)  | Article.objects.filter(activate=True).filter(
+        #                 readers__username__contains=key) | Article.objects.filter(activate=True).filter(
+        #                     comments__text__contains=key)
 
-    if request.method == "POST":
-        key = request.POST.get("key_word")
-        articles = Article.objects.filter(activate=True).filter(
-            title__contains=key) | Article.objects.filter(activate=True).filter(
-                text__contains=key) | Article.objects.filter(activate=True).filter(
-                    tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
-                        picture__contains=key)  | Article.objects.filter(activate=True).filter(
-                            readers__username__contains=key) | Article.objects.filter(activate=True).filter(
-                                comments__text__contains=key)
-
-        articles = articles.distinct()    
+        articles = articles.distinct()  
     else:
-        if "key_word" in request.GET:
-            key = request.GET.get("key_word")
-            articles = Article.objects.filter(activate=True).filter(text__contains=key)
-       else:
-            articles = Article.objects.filter(activate=True)
+        articles = Article.objects.filter(activate=True)
+    return render(request, "articel/homepage.html", {"articles": articles})
 
-    return render(request, "articel/homepage.html", 
-        {"articles": articles}
-    )
 
 def article(request, id):
     article = Article.objects.get(id=id)  
@@ -61,12 +53,36 @@ def article(request, id):
         context
     )
 
+
 def add_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            if not Author.objects.filter(user=request.user):
+                author = Author(
+                    user=request.user,
+                    name=request.user.username
+                )
+                author.save()
+            else:
+                author = Author.objects.get(user=request.user)
+
+            article = Article()
+            article.author = author
+            article.title = form.cleaned_data["title"]
+            article.text = form.cleaned_data["text"]
+            article.picture = form.cleaned_data["picture"]
+            tags = form.cleaned_data["tags"]
+            article.save()
+
+            tags = form.cleaned_data["tags"]
+            for tag in tags.split(","):
+                obj, created = Tag.objects.get_or_create(name=tag)
+                obj.article = article
+                obj.save    
+            
             return render(request, "success.html")
+
     
     form = ArticleForm()
     return render(request, "articel/add_article.html",
@@ -111,11 +127,31 @@ def users(request):
 def edit_article(request, id):
     article = Article.objects.get(id=id)
 
-    if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES, instance=article)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return render(request, "success.html")
+            if not Author.objects.filter(user=request.user):
+                author = Author(
+                    user=request.user,
+                    name=request.user.username
+                )
+                author.save()
+            else:
+                author = Author.objects.get(user=request.user)
+
+            article = Article()
+            article.author = author
+            article.title = form.cleaned_data["title"]
+            article.text = form.cleaned_data["text"]
+            article.picture = form.cleaned_data["picture"]
+            tags = form.cleaned_data["tags"]
+            article.save()
+
+            tags = form.cleaned_data["tags"]
+            for tag in tags.split(","):
+                obj, created = Tag.objects.get_or_create(name=tag)
+                obj.article = article
+                obj.save
     
     form = ArticleForm(instance=article)
     return render (request, "articel/articles.html", 

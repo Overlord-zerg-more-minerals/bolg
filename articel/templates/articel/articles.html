@@ -2,8 +2,12 @@
 {% load bootstrap4 %}
 
 {% block content %}
-
+    <hr>
+    {% include "includes/success.html" %}
+    <hr>
     <h2></li>{{ article.title }}</li></h2>
+    {% for  %}
+    {% endfor %}
     <hr>
     {% if article.picture %}
         <img width="150" src="{{ article.picture.url }}">
@@ -19,7 +23,7 @@
     <h7>Дата публикации: {{ article.publication_date }} </h7>
     <br>
     <h7>Последнее изменение: {{ article.updated_date }} </h7>      
-
+    
     <hr>
     
         <a  href="{% url 'edit-article' article.id %}" 
