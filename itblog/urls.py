@@ -32,3 +32,4 @@ urlpatterns = [
     path("comments/<int:id>/edit/", edit_comment, name="edit-comment"),
     path("comment/<int:id>/delete/", delete_comment, name="delete-comment")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
