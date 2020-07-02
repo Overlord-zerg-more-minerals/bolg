@@ -1,24 +1,28 @@
-from django.shortcuts import render, redirect
-from .models import Author, Article   
-from django.contrib.auth.models import User
-from .forms import *
-from django.db.models import Q 
+from django.shortcuts import render, redirect # импорт 
+from .models import Author, Article # импорт таблиц с models.py
+from django.contrib.auth.models import User # импорт пользователя (супер-юзер)
+from .forms import * # импорт всех форм с forms.py
+from django.db.models import Q # 
 
-def homepage(request):
-    if "key_word" in request.GET:
+def homepage(request): # 
+    if "key_word" in request.GET: 
         key = request.GET.get("key_word")
-        # articles = Article.objects.filter(activate=True).filter(
-        # title__contains=key) | Article.objects.filter(activate=True).filter(
-        #     text__contains=key) | Article.objects.filter(activate=True).filter(
-        #         tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
-        #             picture__contains=key)  | Article.objects.filter(activate=True).filter(
-        #                 readers__username__contains=key) | Article.objects.filter(activate=True).filter(
-        #                     comments__text__contains=key)
+
+# как не следует делать поиск: (поиск с использованием contains)
+# articles = Article.objects.filter(activate=True).filter(
+#   title__contains=key) | Article.objects.filter(activate=True).filter(
+#      text__contains=key) | Article.objects.filter(activate=True).filter(
+#         tags__name_tag__contains=key) | Article.objects.filter(activate=True).filter(
+#             picture__contains=key)  | Article.objects.filter(activate=True).filter(
+#                 readers__username__contains=key) | Article.objects.filter(activate=True).filter(
+#                     comments__text__contains=key)
 
         articles = articles.distinct()  
-    else:
+    else: 
         articles = Article.objects.filter(activate=True)
-    return render(request, "articel/homepage.html", {"articles": articles})
+    
+    return render(request, "articel/homepage.html",
+    {"articles": articles})
 
 
 def article(request, id):
@@ -55,9 +59,11 @@ def article(request, id):
 
 
 def add_article(request):
+    #
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
+            #
             if not Author.objects.filter(user=request.user):
                 author = Author(
                     user=request.user,
@@ -66,20 +72,19 @@ def add_article(request):
                 author.save()
             else:
                 author = Author.objects.get(user=request.user)
-
+            #
             article = Article()
             article.author = author
             article.title = form.cleaned_data["title"]
             article.text = form.cleaned_data["text"]
             article.picture = form.cleaned_data["picture"]
-            tags = form.cleaned_data["tags"]
             article.save()
-
+            #
             tags = form.cleaned_data["tags"]
             for tag in tags.split(","):
-                obj, created = Tag.objects.get_or_create(name=tag)
-                obj.article = article
-                obj.save    
+                obj, created = Tag.objects.get_or_create(name_tag=tag)
+                article.tag.add(obj)
+            article.save()
             
             return render(request, "success.html")
 

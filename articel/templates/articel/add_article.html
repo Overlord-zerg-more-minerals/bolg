@@ -7,12 +7,13 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <div calss="form-group">
+        <div class="form-group">
             <input
-            calss="form-control" 
-            type="text" 
-            name="tags"
-            placeholder="Укажите теги через запетую">
+                class="form-control" 
+                type="text" 
+                name="tags"
+                placeholder="Укажите теги через запетую"
+            >
         </div>
        
         <button class="btn btn-lg btn-info" >Сохранить</button>
