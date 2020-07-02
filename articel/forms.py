@@ -4,7 +4,7 @@ from .models import *
 
 
 class ArticleForm(forms.ModelForm):
-    tags = form.CharField(max_length=255)
+    tags = forms.CharField(max_length=255)
     class Meta:
         model = Article
         fields = ['title', 'text', 'picture', 'tags']
