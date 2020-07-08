@@ -81,9 +81,9 @@ def add_article(request):
             article.save()
             #
             tags = form.cleaned_data["tags"]
-            for tag in tags.split(","):
-                obj, created = Tag.objects.get_or_create(name_tag=tag)
-                article.tag.add(obj)
+            for tags in tags.split(","):
+                obj, created = Tag.objects.get_or_create(name_tag=tags)
+                article.tags.add(obj)
             article.save()
             
             return render(request, "success.html")
@@ -95,21 +95,21 @@ def add_article(request):
     )
 
 
-def authors(request):
+def authors(request): #
     authors = Author.objects.all()
     return render(request, "articel/authors.html",
        {"authors": authors}
     )
  
 
-def profile(request, pk):
+def profile(request, pk): #
     author = Author.objects.get(id=pk)
     return render(request, "articel/profile.html",
         {"author": author}
     )
 
 
-def add_author(request):
+def add_author(request): #
     if request.method == "GET":
         form = AuthorForm()
         return render(request, "articel/add_author.html",
@@ -123,15 +123,15 @@ def add_author(request):
             return render(request, "success.html")   
                 
 
-def users(request):
+def users(request): #
     context = {}
     context["user_all"] = User.objects.all()
     return render(request, "articel/users.html", context)
 
 
-def edit_article(request, id):
+def edit_article(request, id): #
     article = Article.objects.get(id=id)
-
+    #
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
@@ -143,7 +143,7 @@ def edit_article(request, id):
                 author.save()
             else:
                 author = Author.objects.get(user=request.user)
-
+            #
             article = Article()
             article.author = author
             article.title = form.cleaned_data["title"]
@@ -151,20 +151,20 @@ def edit_article(request, id):
             article.picture = form.cleaned_data["picture"]
             tags = form.cleaned_data["tags"]
             article.save()
-
+            #
             tags = form.cleaned_data["tags"]
-            for tag in tags.split(","):
-                obj, created = Tag.objects.get_or_create(name=tag)
+            for tags in tags.split(","):
+                obj, created = Tag.objects.get_or_create(name=tags)
                 obj.article = article
                 obj.save
-    
+    #
     form = ArticleForm(instance=article)
     return render (request, "articel/articles.html", 
         {"form":form}
     )
 
 
-def edit_comment(request, id):
+def edit_comment(request, id): #
     comments = Comments.objects.get(id=id)
     if request.method == 'POST':
         form = CommentsForm(request.POST, instance=comments)
@@ -178,7 +178,7 @@ def edit_comment(request, id):
     )
 
 
-def delete_comment(request, id):
+def delete_comment(request, id): #
     Comments.objects.get(id=id).delete()
     return render(request, "success.html")
 

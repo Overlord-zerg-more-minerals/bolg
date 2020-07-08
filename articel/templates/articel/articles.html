@@ -2,17 +2,18 @@
 {% load bootstrap4 %}
 
 {% block content %}
-    <hr>
+    
     {% include "includes/success.html" %}
     <hr>
     <h2></li>{{ article.title }}</li></h2>
-    {% for  %}
+    {% for tag in article.tag.all %}
+        <button>{{ tag.name }}</button>
     {% endfor %}
     <hr>
     {% if article.picture %}
         <img width="150" src="{{ article.picture.url }}">
     {% endif %}
-    <hr>
+    
     <div><h4>{{ article.text }}</h4></div>
     <hr>
     <i>Автор: {{ article.author }}</i>
